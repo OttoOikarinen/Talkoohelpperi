@@ -1,3 +1,5 @@
+import sys
+
 class VOLUNTEER():
     name = ""
     phone_number = ""
@@ -26,7 +28,6 @@ class EVENT():
 
 
 def generate_volunteer_list():
-    print("we are here")
     fileName = input("Give csv-file where volunteers are listed: ")
     volunteers = readFile(fileName)
     return volunteers
@@ -34,27 +35,28 @@ def generate_volunteer_list():
 def readFile(fileName):
     rows = 0
     volunteers = []
-    
-    file = open(fileName, 'r')
-    file.readline() # Reading the headers away.
+    try:
+        file = open(fileName, 'r')
+        file.readline() # Reading the headers away.
 
-    while True:
-        row = file.readline()
-        if len(row) == 0:
-            break
-        else:
-            data = row.split(';')
-            data = data[:-1]
-            volunteer = VOLUNTEER()
-            volunteer.name = data[0]
-            volunteer.phone_number = data[1]
-            volunteer.arrive_time = data[2]
-            volunteer.leaving_time = data[3]
-            volunteer.can_do_tasks = get_tasks(data)
-            volunteers.append(volunteer)
-            rows += 1
-
-    
+        while True:
+            row = file.readline()
+            if len(row) == 0:
+                break
+            else:
+                data = row.split(';')
+                data = data[:-1]
+                volunteer = VOLUNTEER()
+                volunteer.name = data[0]
+                volunteer.phone_number = data[1]
+                volunteer.arrive_time = data[2]
+                volunteer.leaving_time = data[3]
+                volunteer.can_do_tasks = get_tasks(data)
+                volunteers.append(volunteer)
+                rows += 1
+    except FileNotFoundError:
+        print("We couldn't find the file you specified ({0}), please try again.".format(fileName))
+        sys.exit(0)
     return volunteers
 
 
