@@ -12,6 +12,7 @@ def main():
         if choice == 1:
             data = []
             data = helpperikirjasto.generate_volunteer_list()
+            helpperikirjasto.print_all_volunteers(data)
         elif choice == 2:
             break
         
