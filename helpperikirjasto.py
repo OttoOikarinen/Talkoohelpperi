@@ -65,3 +65,19 @@ def get_tasks(data):
         else:
             can_do_tasks[i-2] = 0
     return can_do_tasks
+
+def print_all_volunteers(volunteers):
+    for i in volunteers:
+        print_volunteer(volunteers[i])
+    return 0
+
+def print_volunteer(volunteer):
+    
+    print(volunteer.phone_number)
+    print(volunteer.arrive_time)
+    print(volunteer.leaving_time)
+    print(volunteer.can_do_tasks)
+    print(volunteer.tasks_sum)
+    print(volunteer.task_length_combined)
+
+    return 0
