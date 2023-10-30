@@ -26,53 +26,58 @@ class EVENT():
 
 
 def generate_volunteer_list():
-    fileName = input("Give csv-file where volunteers are listed.")
+    print("we are here")
+    fileName = input("Give csv-file where volunteers are listed: ")
     volunteers = readFile(fileName)
     return volunteers
 
 def readFile(fileName):
     rows = 0
     volunteers = []
-    try:
-        file = open(fileName, 'r')
-        file.readline() # Reading the headers away.
+    
+    file = open(fileName, 'r')
+    file.readline() # Reading the headers away.
 
-        while True:
-            row = file.readline()
-            if len(row) == 0:
-                break
-            else:
-                data = row.split(';')
-                volunteer = VOLUNTEER()
-                volunteer.name = data[0]
-                volunteer.arrive_time = data[1]
-                volunteer.leaving_time = data[2]
-                volunteer.can_do_tasks = get_tasks(data)
-                volunteers.append(volunteer)
-                rows += 1
+    while True:
+        row = file.readline()
+        if len(row) == 0:
+            break
+        else:
+            data = row.split(';')
+            data = data[:-1]
+            volunteer = VOLUNTEER()
+            volunteer.name = data[0]
+            volunteer.phone_number = data[1]
+            volunteer.arrive_time = data[2]
+            volunteer.leaving_time = data[3]
+            volunteer.can_do_tasks = get_tasks(data)
+            volunteers.append(volunteer)
+            rows += 1
 
-    except Exception:
-        print("Error handling file {0}, try again.".format(fileName))
+    
     return volunteers
 
 
 def get_tasks(data):
     # Tiskit, imurointi, WC, rannekkeet, kahvila, jne.
     can_do_tasks = []
-    for i in data[3:]:
-        if data[i] == "1":
-            can_do_tasks[i-2] = 1
+    for item in data[3:]:
+        if item == "1":
+            can_do_tasks.append(1)
         else:
-            can_do_tasks[i-2] = 0
+            can_do_tasks.append(0)
     return can_do_tasks
 
 def print_all_volunteers(volunteers):
+    print("### Printing all volunteers ###")
     for i in volunteers:
-        print_volunteer(volunteers[i])
+        print_volunteer(i)
+        print()
     return 0
 
 def print_volunteer(volunteer):
-    
+
+    print(volunteer.name)
     print(volunteer.phone_number)
     print(volunteer.arrive_time)
     print(volunteer.leaving_time)

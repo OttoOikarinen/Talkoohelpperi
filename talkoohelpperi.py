@@ -9,11 +9,11 @@ def main():
         choice = input("\nYour choice: ")
         
         print("Your choice was {0}, executing".format(choice))
-        if choice == 1:
+        if choice == "1":
             data = []
             data = helpperikirjasto.generate_volunteer_list()
             helpperikirjasto.print_all_volunteers(data)
-        elif choice == 2:
+        elif choice == "2":
             break
         
     return 0
